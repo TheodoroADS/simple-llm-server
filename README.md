@@ -43,13 +43,12 @@ python -m uvicorn main:app
 from llm_client import LocalLLMClient as LLM
 
 # initialise the client with the local llm url
-llm = LLM("http://127.0.0.1:8000")
-
+llm = LLM("http://127.0.0.1:8000", prompt_template = "<s>[INST] {prompt} [/INST]") # the prompt template is the template used by the model (you can find it in the documentation)
 
 # get a whole response all at once
 funny_joke : str = llm("Tell me a funny joke about cats", temperature = 0, stop = ["HAHAHAHA"])
 
-# stream the response from the server instead and accessing the tokens as a generator object
+# stream the response from the server instead and access the tokens as a generator object
 for token in llm("How long does it take to learn AI?", stream = True):
     print(token, end = "", flush = True)
 
@@ -77,3 +76,15 @@ encoddings : np.ndarray = encoder.encode(sentences)
 one_encodding : np.ndarray = encoder.encode("Maybe give me a star °^° ?")
 
 ```
+
+## Install the client as a python library
+
+You simply run the following commands : 
+
+```sh
+cd client
+python setup.py bdist_wheel
+pip install .\dist\llm_client-0.1.0-py3-none-any.whl #the name might be different, it just has to be a .whl file!
+```
+
+Now you can simply import it like in the examples showed above

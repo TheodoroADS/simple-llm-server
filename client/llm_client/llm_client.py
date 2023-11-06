@@ -99,16 +99,15 @@ class LocalEmbeddingsClient:
 
 if __name__ == "__main__":
 
-    # llm = LocalLLMClient("http://127.0.0.1:8000", prompt_template = "<s>[INST] {prompt} [/INST]")
+    llm = LocalLLMClient("http://127.0.0.1:8000", prompt_template = "<s>[INST] {prompt} [/INST]")
 
-    # for token in llm(
-    #     "You are a smart virtual assistant that works for a banking company. Tell me the steps I need to take "
-    #     "to be allowed a student loan in the state of California", 
-    #     stream= True
-    # ):
+    for token in llm(
+        "Tell me a short story about how Brazil got its independence",
+        stream= True
+    ):
         
-    #     print(token, end="", flush=True)
-    # print()
+        print(token, end="", flush=True)
+    print()
 
     encoder = LocalEmbeddingsClient("http://127.0.0.1:8000")
 
